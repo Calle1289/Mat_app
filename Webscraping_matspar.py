@@ -1,0 +1,123 @@
+import requests
+from bs4 import BeautifulSoup
+import random
+from time import sleep
+
+# Webscraping matspar
+
+mat_hemsidor = [
+    "https://www.matspar.se/kategori/frukt",
+    "https://www.matspar.se/kategori/farska-bar",
+    "https://www.matspar.se/kategori/fryst-frukt-bar",
+    "https://www.matspar.se/kategori/farska-gronsaker",
+    "https://www.matspar.se/kategori/potatis-rotfrukter-svamp",
+    "https://www.matspar.se/kategori/sallat-groddar",
+    "https://www.matspar.se/kategori/farska-kryddvaxter-orter",
+    "https://www.matspar.se/kategori/frysta-gronsaker",
+    "https://www.matspar.se/kategori/brod",
+    "https://www.matspar.se/kategori/knackebrod-skorpor",
+    "https://www.matspar.se/kategori/korvbrod-pitabrod-mm",
+    "https://www.matspar.se/kategori/fikabrod-tartor",
+    "https://www.matspar.se/kategori/kex-tilltugg",
+    "https://www.matspar.se/kategori/deg-bakmix",
+    "https://www.matspar.se/kategori/fryst-brod-desserter",
+    "https://www.matspar.se/kategori/kott",
+    "https://www.matspar.se/kategori/frysta-kottprodukter",
+    "https://www.matspar.se/kategori/kottbullar-biffar-nuggets",
+    "https://www.matspar.se/kategori/kyckling-fagel",
+    "https://www.matspar.se/kategori/korv",
+    "https://www.matspar.se/kategori/chark-palagg",
+    "https://www.matspar.se/kategori/blodpudding-sylta",
+    "https://www.matspar.se/kategori/fisk",
+    "https://www.matspar.se/kategori/kaviar-rom-saser",
+    "https://www.matspar.se/kategori/sill-anjovis-sardiner",
+    "https://www.matspar.se/kategori/skaldjur",
+    "https://www.matspar.se/kategori/fiskkonserver",
+    "https://www.matspar.se/kategori/mjolk",
+    "https://www.matspar.se/kategori/fil-yoghurt",
+    "https://www.matspar.se/kategori/smor-margarin",
+    "https://www.matspar.se/kategori/mellanmal-desserter",
+    "https://www.matspar.se/kategori/ost",
+    "https://www.matspar.se/kategori/gradde",
+    "https://www.matspar.se/kategori/graddfil-creme-fraiche",
+    "https://www.matspar.se/kategori/kvarg-cottage-cheese",
+    "https://www.matspar.se/kategori/havre-soja-risprodukter",
+    "https://www.matspar.se/kategori/agg",
+    "https://www.matspar.se/kategori/jast",
+    "https://www.matspar.se/kategori/asien",
+    "https://www.matspar.se/kategori/texmex",
+    "https://www.matspar.se/kategori/ovriga-varlden",
+    "https://www.matspar.se/kategori/kryddor-smaksattare",
+    "https://www.matspar.se/kategori/oljor-vinager-attika",
+    "https://www.matspar.se/kategori/pasta-ris-spannmal",
+    "https://www.matspar.se/kategori/baka",
+    "https://www.matspar.se/kategori/bonor-linser-artor",
+    "https://www.matspar.se/kategori/flingor-granola-musli",
+    "https://www.matspar.se/kategori/pulvermix",
+    "https://www.matspar.se/kategori/konserv-burk",
+    "https://www.matspar.se/kategori/sylt-mos-marmelad",
+]
+
+mat_hemsidor_output = [
+    "frukt",
+    "farska-bar",
+    "fryst-frukt-bar",
+    "farska-gronsaker",
+    "potatis-rotfrukter-svamp",
+    "sallat-groddar",
+    "farska-kryddvaxter-orter",
+    "frysta-gronsaker",
+    "brod",
+    "knackebrod-skorpor",
+    "korvbrod-pitabrod-mm",
+    "fikabrod-tartor",
+    "kex-tilltugg",
+    "deg-bakmix",
+    "fryst-brod-desserter",
+    "kott",
+    "frysta-kottprodukter",
+    "kottbullar-biffar-nuggets",
+    "kyckling-fagel",
+    "korv",
+    "chark-palagg",
+    "blodpudding-sylta",
+    "fisk",
+    "kaviar-rom-saser",
+    "sill-anjovis-sardiner",
+    "skaldjur",
+    "fiskkonserver",
+    "mjolk",
+    "fil-yoghurt",
+    "smor-margarin",
+    "mellanmal-desserter",
+    "ost",
+    "gradde",
+    "graddfil-creme-fraiche",
+    "kvarg-cottage-cheese",
+    "havre-soja-risprodukter",
+    "agg",
+    "jast",
+    "asien",
+    "texmex",
+    "ovriga-varlden",
+    "kryddor-smaksattare",
+    "oljor-vinager-attika",
+    "pasta-ris-spannmal",
+    "baka",
+    "bonor-linser-artor",
+    "flingor-granola-musli",
+    "pulvermix",
+    "konserv-burk",
+    "sylt-mos-marmelad",
+]
+
+for hemsida, hemsida_text in zip(mat_hemsidor, mat_hemsidor_output):
+    result = requests.get(hemsida)
+
+    soup = BeautifulSoup(result.text, "html.parser")
+
+    with open(hemsida_text, "w", encoding="utf-8") as file:
+        file.write(soup.prettify())
+
+    sleep(random.random())
+    print(hemsida_text)
