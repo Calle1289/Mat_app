@@ -4,7 +4,6 @@ from thefuzz import process
 from thefuzz import fuzz
 from pprint import pprint as pp
 
-saker = {}
 counter = 0
 for i in list(livsmedelsverket_lista.keys()):
     score2 = process.extractOne(i, matspar_lista.keys(), scorer=fuzz.token_sort_ratio)
@@ -16,7 +15,7 @@ for i in list(livsmedelsverket_lista.keys()):
     ]:
         for score in [score2, score3]:
             if i.split()[0].lower() == score[0].split()[0].lower() and score[1] >= 60:
-                saker[i] = (
+                livsmedelsverket_lista[i] = (
                     livsmedelsverket_lista[i]
                     | matspar_lista[score[0]]
                     | {"score_name":score[0],"score": score[1]}
@@ -30,7 +29,7 @@ for i in list(livsmedelsverket_lista.keys()):
         if i.split()[0].lower() not in [
             score.split()[0].lower() for score in [score2[0], score3[0]]
         ]:
-            saker[i] = (
+            livsmedelsverket_lista[i] = (
                 livsmedelsverket_lista[i]
                 | matspar_lista[max_score[0]]
                 | {"score_name":max_score[0],"score": max_score[1]}
