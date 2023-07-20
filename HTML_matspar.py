@@ -56,7 +56,7 @@ mat_hemsidor_output = ['frukt',
 
 livsmedel_lista_lista = {}
 for hemsida_text in mat_hemsidor_output:
-    with open(os.getcwd() + f'\\{hemsida_text}', "r", encoding="utf-8") as f:
+    with open(os.getcwd() + f'\\matspar_txt\\{hemsida_text}', "r", encoding="utf-8") as f:
         for rad in f.readlines():
             if "window.__PAGEDATA__" in rad:
                 rad_split = rad.split(",")
