@@ -4,7 +4,6 @@ from thefuzz import process
 from thefuzz import fuzz
 from pprint import pprint as pp
 
-counter = 0
 for i in list(livsmedelsverket_lista.keys()):
     score2 = process.extractOne(i, matspar_lista.keys(), scorer=fuzz.token_sort_ratio)
     score3 = process.extractOne(i, matspar_lista.keys(), scorer=fuzz.ratio)
@@ -34,5 +33,3 @@ for i in list(livsmedelsverket_lista.keys()):
                 | matspar_lista[max_score[0]]
                 | {"score_name":max_score[0],"score": max_score[1]}
             )
-    counter += 1
-pp('Done')

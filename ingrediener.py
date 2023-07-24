@@ -27,14 +27,14 @@ ingredienser = frukt | mejeri | bakning | annat | kött | grönsaker
 # Recept
 recept = {
     "proteinbar": [
-        ("cacao", 40),
-        ("mjölk_röd", 300),
-        ("havregryn", 146),
-        ("proteinpulver", 252),
+        ("cacao", 44),
+        ("mjölk_röd", 365),
+        ("havregryn", 182),
+        ("proteinpulver", 336),
         ("ägg", 100),
         ("banan", 100),
         ("jordnötssmör", 128),
-        ("kanel", 4),
+        ("kanel", 6),
     ],
     "kycklingsallad": [
         ("kyckling_innerfiler", 200),
