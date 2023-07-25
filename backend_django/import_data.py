@@ -1,5 +1,13 @@
 from mat.models import FoodList, FoodItem
 from exeee import livsmedelsverket_lista
+import os
+import django
+
+# Set the DJANGO_SETTINGS_MODULE environment variable
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend_django.settings")
+
+# Initialize Django
+django.setup()
 
 food_data = livsmedelsverket_lista
 
