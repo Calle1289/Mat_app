@@ -1,4 +1,4 @@
-import re
+mport re
 import os
 from pprint import pprint as pp
 
@@ -65,9 +65,7 @@ for hemsida_text in mat_hemsidor_output:
 
                 livsmedel_lista = {}
                 livsmedel = [False, False, False]
-                i = 0
                 for string in data:
-                    i += 1
                     if "name:" in string:
                         index = string.find(":")
                         substring = string[index + 1 :]
