@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
+from django.db.models import JSONField
 
 class FoodList(models.Model):
     name = models.CharField(max_length=200)
@@ -12,7 +12,7 @@ class FoodItem(models.Model):
     name = models.CharField(max_length=200)
     price = models.FloatField()
     weight = models.FloatField()
-    nutrition_data = JSONField()
+    nutrition_data = JSONField(blank=True, null=True)
 
     def __str__(self):
         return self.name

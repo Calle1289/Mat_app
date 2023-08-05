@@ -2,7 +2,6 @@ from HTML_matspar import livsmedel_lista_lista as matspar_lista
 from API_livsmedelsverket import livsmedel_lista as livsmedelsverket_lista
 from thefuzz import process
 from thefuzz import fuzz
-from pprint import pprint as pp
 
 for i in list(livsmedelsverket_lista.keys()):
     score2 = process.extractOne(i, matspar_lista.keys(), scorer=fuzz.token_sort_ratio)
