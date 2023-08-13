@@ -1,5 +1,5 @@
-from HTML_matspar import livsmedel_lista_lista as matspar_lista
-from API_livsmedelsverket import livsmedel_lista as livsmedelsverket_lista
+from mat.scripts.HTML_matspar import livsmedel_lista_lista as matspar_lista
+from mat.scripts.API_livsmedelsverket import livsmedel_lista as livsmedelsverket_lista
 from thefuzz import process
 from thefuzz import fuzz
 
