@@ -1,10 +1,7 @@
 from mat.models import FoodList, FoodItem
 from mat.scripts.exeee import livsmedelsverket_lista
-import django
 
 def import_data():
-    # Set up Django
-    django.setup()
 
     # Your import logic
     food_data = livsmedelsverket_lista
