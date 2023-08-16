@@ -10,8 +10,8 @@ class FoodList(models.Model):
 class FoodItem(models.Model):
     food_list = models.ForeignKey(FoodList, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    price = models.FloatField()
-    weight = models.FloatField()
+    price = models.FloatField(blank=True, null=True)
+    weight = models.FloatField(blank=True, null=True)
     nutrition_data = JSONField(blank=True, null=True)
 
     def __str__(self):
