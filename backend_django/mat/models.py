@@ -8,7 +8,6 @@ class FoodList(models.Model):
         return self.name
 
 class FoodItem(models.Model):
-    food_list = models.ForeignKey(FoodList, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     price = models.FloatField(blank=True, null=True)
     weight = models.FloatField(blank=True, null=True)
