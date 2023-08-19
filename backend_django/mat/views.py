@@ -3,8 +3,14 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import FoodItem
 from .serializers import FoodItemSerializer
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 
 class FoodList(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         items = FoodItem.objects.all()
         serializer = FoodItemSerializer(items, many=True)
@@ -19,6 +25,9 @@ class FoodList(APIView):
 
     
 class FoodDetail(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return FoodItem.objects.get(pk=pk)
