@@ -6,6 +6,11 @@ from .serializers import FoodItemSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+from rest_framework import generics
+from django.contrib.auth.models import User
+from .serializers import RegisterUserSerializer
+from rest_framework.permissions import AllowAny
+
 
 class FoodList(APIView):
     authentication_classes = [TokenAuthentication]
@@ -60,3 +65,7 @@ class FoodDetail(APIView):
         fooditem.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class RegisterUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterUserSerializer
+    permission_classes = [AllowAny]
