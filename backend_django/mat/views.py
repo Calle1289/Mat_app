@@ -1,71 +1,43 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import status
 from .models import FoodItem
 from .serializers import FoodItemSerializer
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+
+from .models import Recipe
+from .serializers import RecipeSerializer
 
 from rest_framework import generics
 from django.contrib.auth.models import User
 from .serializers import RegisterUserSerializer
 from rest_framework.permissions import AllowAny
 
-
-class FoodList(APIView):
-    authentication_classes = [TokenAuthentication]
+class FoodItemList(generics.ListCreateAPIView):
+    queryset = FoodItem.objects.all()
+    serializer_class = FoodItemSerializer
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        items = FoodItem.objects.all()
-        serializer = FoodItemSerializer(items, many=True)
-        return Response(serializer.data)
-    
-    def post(self, request, format=None):
-        serializer = FoodItemSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    
-class FoodDetail(APIView):
-    authentication_classes = [TokenAuthentication]
+class FoodItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FoodItem.objects.all()
+    serializer_class = FoodItemSerializer
     permission_classes = [IsAuthenticated]
-
-    def get_object(self, pk):
-        try:
-            return FoodItem.objects.get(pk=pk)
-        except FoodItem.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-    def get(self, request, pk, format=None):
-        fooditem = self.get_object(pk)
-        if isinstance(fooditem, Response):  # Check if it's a 404 response
-            return fooditem
-        serializer = FoodItemSerializer(fooditem)
-        return Response(serializer.data)
-    
-    def put(self, request, pk, format=None):
-        fooditem = self.get_object(pk)
-        if isinstance(fooditem, Response):  # Check if it's a 404 response
-            return fooditem
-
-        serializer = FoodItemSerializer(fooditem, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk, format=None):
-        fooditem = self.get_object(pk)
-        if isinstance(fooditem, Response):  # Check if it's a 404 response
-            return fooditem
-
-        fooditem.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class RegisterUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterUserSerializer
     permission_classes = [AllowAny]
+
+class RecipeListCreateView(generics.ListCreateAPIView):
+    serializer_class = RecipeSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Recipe.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class RecipeRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = RecipeSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Recipe.objects.filter(user=self.request.user)
